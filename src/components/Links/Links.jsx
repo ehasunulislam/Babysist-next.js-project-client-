@@ -6,7 +6,7 @@ import React from 'react'
 const Links = ({href, children}) => {
     const pathName = usePathname();
   return (
-    <Link className={`${pathName.startsWith(href) && "bg-blue-400"} font-medium`} href={href}>
+    <Link className={`${pathName.startsWith(href) && "text-blue-400"} font-medium`} href={href}>
         {children}
     </Link>
   )

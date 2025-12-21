@@ -1,24 +1,24 @@
 import React from "react";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import Logo from "../Logo/Logo";
-import Link from "next/link";
 import { TiHomeOutline } from "react-icons/ti";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoBookOutline } from "react-icons/io5";
+import Links from "../Links/Links";
 
 const Navbar = () => {
   const nav = (
     <>
       <li>
-        <Link href={"/"}><TiHomeOutline size={25} /></Link>
+        <Links href={"/"}><TiHomeOutline size={25} /></Links>
       </li>
 
       <li>
-        <Link href={"/services"}><RiUserSettingsLine size={25} /></Link>
+        <Links href={"/services"}><RiUserSettingsLine size={25} /></Links>
       </li>
 
       <li>
-        <Link href={"/booking"}><IoBookOutline size={25} /></Link>
+        <Links href={"/booking"}><IoBookOutline size={25} /></Links>
       </li>
     </>
   );
