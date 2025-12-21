@@ -11,7 +11,7 @@ const Care = () => {
         />
       </div>
 
-      <div className="mx-20 flex justify-center gap-25 mt-5">
+      <div className="mx-20 flex justify-center gap-25 mt-11">
         <section>
           <Image src="/assets/care.webp" alt="care" width={350} height={300} />
         </section>
