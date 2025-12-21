@@ -1,0 +1,57 @@
+import React from "react";
+import { HiMiniBars3BottomRight } from "react-icons/hi2";
+import Logo from "../Logo/Logo";
+import Link from "next/link";
+import { TiHomeOutline } from "react-icons/ti";
+import { RiUserSettingsLine } from "react-icons/ri";
+import { IoBookOutline } from "react-icons/io5";
+
+const Navbar = () => {
+  const nav = (
+    <>
+      <li>
+        <Link href={"/"}><TiHomeOutline size={25} /></Link>
+      </li>
+
+      <li>
+        <Link href={"/services"}><RiUserSettingsLine size={25} /></Link>
+      </li>
+
+      <li>
+        <Link href={"/booking"}><IoBookOutline size={25} /></Link>
+      </li>
+    </>
+  );
+
+  return (
+    <div className="navbar px-8">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <HiMiniBars3BottomRight />
+          </div>
+          <ul
+            tabIndex="-1"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            {nav}
+          </ul>
+        </div>
+        <div className="logo-sec">
+          <Logo />
+        </div>
+      </div>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+         {nav}
+        </ul>
+      </div>
+      <div className="navbar-end">
+        <a className="btn">Login</a>
+        <a className="btn ms-3">Register</a>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
