@@ -5,6 +5,7 @@ import { TiHomeOutline } from "react-icons/ti";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoBookOutline } from "react-icons/io5";
 import Links from "../Links/Links";
+import RegisterButton from "../Button/RegisterButton";
 
 const Navbar = () => {
   const nav = (
@@ -48,7 +49,10 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <a className="btn">Login</a>
-        <a className="btn ms-3">Register</a>
+
+        <div className="ms-3">
+          <RegisterButton buttonText={"Sign up"} />
+        </div>
       </div>
     </div>
   );
