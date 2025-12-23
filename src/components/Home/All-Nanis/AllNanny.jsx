@@ -105,7 +105,10 @@ const AllNanny = () => {
       )}
 
       <div className="flex justify-center items-center mt-4">
-        <Link href={"/"} className="btn btn-outline border border-gray-200 rounded-2xl">
+        <Link
+          href={"/"}
+          className="btn btn-outline border border-gray-200 rounded-2xl"
+        >
           Find Your Nanny
         </Link>
       </div>
