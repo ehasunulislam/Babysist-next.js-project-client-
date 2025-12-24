@@ -91,7 +91,7 @@ const Register = () => {
       if (res.data.insertedId) {
         Swal.fire({
           title: "Login Successful! 🎉",
-          text: "Welcome to Garments System",
+          text: "Welcome to BabySist",
           icon: "success",
         });
         // navigate(redirect, { replace: true });

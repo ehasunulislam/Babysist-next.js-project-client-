@@ -9,9 +9,29 @@ import Links from "../Links/Links";
 import RegisterButton from "../Button/RegisterButton";
 import useAuthInfo from "@/Hooks/useAuthInfo";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user } = useAuthInfo();
+  const { user, signOutUser } = useAuthInfo();
+
+  // handle SignOut functionality
+  const handleSignOutFunction = () => {
+    signOutUser()
+      .then(() => {
+        Swal.fire({
+          title: "Log out Successfully",
+          icon: "success",
+          draggable: true,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: err.message,
+          text: "Something went wrong!",
+        });
+      });
+  };
 
   const nav = (
     <>
@@ -70,7 +90,7 @@ const Navbar = () => {
             </div>
 
             <div>
-              <button className="btn ms-3">Log Out</button>
+              <button className="btn ms-3" onClick={handleSignOutFunction}>Log Out</button>
             </div>
           </div>
         ) : (
