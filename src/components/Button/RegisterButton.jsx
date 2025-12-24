@@ -3,7 +3,7 @@ import React from 'react'
 
 const RegisterButton = ({buttonText}) => {
   return (
-    <Link href={"/"} className='btn'>
+    <Link href={"/register"} className='btn'>
       {buttonText}
     </Link>
   )

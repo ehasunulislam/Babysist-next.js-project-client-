@@ -6,6 +6,7 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { IoBookOutline } from "react-icons/io5";
 import Links from "../Links/Links";
 import RegisterButton from "../Button/RegisterButton";
+import Link from "next/link";
 
 const Navbar = () => {
   const nav = (
@@ -48,7 +49,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Login</a>
+        <Links href={"/login"} className="btn">Login</Links>
 
         <div className="ms-3">
           <RegisterButton buttonText={"Sign up"} />
