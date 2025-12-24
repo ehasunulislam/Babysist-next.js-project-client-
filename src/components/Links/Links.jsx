@@ -1,15 +1,20 @@
 "use client"
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React from 'react'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const Links = ({href, children}) => {
-    const pathName = usePathname();
+const Links = ({ href, children }) => {
+  const pathName = usePathname();
+  const isActive =
+    href === "/" ? pathName === "/" : pathName.startsWith(href);
+
   return (
-    <Link className={`${pathName.startsWith(href) && "text-blue-400"} font-medium`} href={href}>
-        {children}
+    <Link
+      href={href}
+      className={`${isActive ? "text-blue-400" : ""} font-medium`}
+    >
+      {children}
     </Link>
-  )
-}
+  );
+};
 
-export default Links
+export default Links;

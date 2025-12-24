@@ -91,13 +91,11 @@ const AllNanny = () => {
           {data.map((item) => {
             return (
               <SwiperSlide key={item.id}>
-                <Link href={"/"}>
-                  <AllNaniCardDesign
-                    name={item.name}
-                    img={item.img}
-                    location={item.location}
-                  />
-                </Link>
+                <AllNaniCardDesign
+                  name={item.name}
+                  img={item.img}
+                  location={item.location}
+                />
               </SwiperSlide>
             );
           })}

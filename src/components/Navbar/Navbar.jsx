@@ -42,7 +42,7 @@ const Navbar = () => {
       </li>
 
       <li>
-        <Links href={"/services"}>
+        <Links href={"/all-nanny"}>
           <RiUserSettingsLine size={25} />
         </Links>
       </li>
