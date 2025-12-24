@@ -3,7 +3,7 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    domains: ["i.ibb.co", "i.ibb.co.com"], // trusted hostname
+    domains: ["i.ibb.co", "i.ibb.co.com", "lh3.googleusercontent.com"], // trusted hostname
   },
 };
 

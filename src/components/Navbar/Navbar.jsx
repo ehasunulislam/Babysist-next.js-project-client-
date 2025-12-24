@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { HiMiniBars3BottomRight } from "react-icons/hi2";
 import Logo from "../Logo/Logo";
@@ -6,21 +7,30 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { IoBookOutline } from "react-icons/io5";
 import Links from "../Links/Links";
 import RegisterButton from "../Button/RegisterButton";
-import Link from "next/link";
+import useAuthInfo from "@/Hooks/useAuthInfo";
+import Image from "next/image";
 
 const Navbar = () => {
+  const { user } = useAuthInfo();
+
   const nav = (
     <>
       <li>
-        <Links href={"/"}><TiHomeOutline size={25} /></Links>
+        <Links href={"/"}>
+          <TiHomeOutline size={25} />
+        </Links>
       </li>
 
       <li>
-        <Links href={"/services"}><RiUserSettingsLine size={25} /></Links>
+        <Links href={"/services"}>
+          <RiUserSettingsLine size={25} />
+        </Links>
       </li>
 
       <li>
-        <Links href={"/booking"}><IoBookOutline size={25} /></Links>
+        <Links href={"/booking"}>
+          <IoBookOutline size={25} />
+        </Links>
       </li>
     </>
   );
@@ -44,16 +54,36 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {nav}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{nav}</ul>
       </div>
       <div className="navbar-end">
-        <Links href={"/login"} className="btn">Login</Links>
+        {user ? (
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full overflow-hidden">
+              <Image
+                src={user.photoURL}
+                width={40}
+                height={40}
+                alt="user image"
+                className="object-cover w-full h-full"
+              />
+            </div>
 
-        <div className="ms-3">
-          <RegisterButton buttonText={"Sign up"} />
-        </div>
+            <div>
+              <button className="btn ms-3">Log Out</button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-3 items-center">
+            <Links href={"/login"} className="btn">
+              Login
+            </Links>
+
+            <div className="ms-3">
+              <RegisterButton buttonText={"Sign up"} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
