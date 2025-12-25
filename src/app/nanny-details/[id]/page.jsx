@@ -1,13 +1,68 @@
+"use client";
+import useAuthInfo from "@/Hooks/useAuthInfo";
+import useAxios from "@/Hooks/useAxios";
+import PrivateRoutes from "@/routes/PrivateRoutes";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-export default async function nannyDetails({ params }) {
-  const { id } = await params;
+function NannyDetails() {
+  const { id } = useParams();
+  const [data, setData] = useState(null);
+  const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(false);
+  const {user} = useAuthInfo();
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/single-nanny/${id}`,
-    { cache: "no-store" }
-  );
-  const data = await res.json();
+  useEffect(() => {
+    axiosSecure(`/single-nanny/${id}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id, axiosSecure]);
+
+  // handleBook functionality
+   const handleBook = async () => {
+    if (!user?.email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Not Logged In",
+        text: "You must be logged in with Gmail to book a nanny!",
+      });
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const payload = {
+        nannyId: id,
+        userEmail: user.email,
+        bookedAt: new Date().toISOString(),
+      };
+
+      const res = await axiosSecure.post("/book-nanny", payload);
+
+      Swal.fire({
+        icon: "success",
+        title: "Booked Successfully",
+        text: `You have booked ${data?.name} successfully!`,
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text: err.response?.data?.message || "Something went wrong!",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white min-h-screen">
@@ -16,8 +71,8 @@ export default async function nannyDetails({ params }) {
         <div className="bg-gradient-to-r from-gray-800 to-gray-600 rounded-2xl p-8 text-white">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <Image
-              src={data?.img}
-              alt={data?.name}
+              src={data?.img || "/placeholder.png"}
+              alt={data?.name || "Nanny Image"}
               className="rounded-full object-cover border-4 border-white shadow-lg"
               width={120}
               height={120}
@@ -25,7 +80,9 @@ export default async function nannyDetails({ params }) {
 
             <div className="flex-1">
               <h1 className="text-3xl font-semibold">{data?.name}</h1>
-              <p className="text-gray-300">{data?.role} in {data?.location}</p>
+              <p className="text-gray-300">
+                {data?.role} in {data?.location}
+              </p>
 
               <div className="flex gap-8 mt-4">
                 <div>
@@ -43,8 +100,16 @@ export default async function nannyDetails({ params }) {
               </p>
             </div>
 
-            <button className="bg-teal-400 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-teal-300 cursor-pointer">
-              Book {data?.name}
+            <button
+              onClick={handleBook}
+              disabled={loading}
+              className={`px-6 py-3 rounded-lg font-medium ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-teal-400 hover:bg-teal-300"
+              } text-gray-900`}
+            >
+              {loading ? "Booking..." : `Book ${data?.name}`}
             </button>
           </div>
         </div>
@@ -106,5 +171,13 @@ export default async function nannyDetails({ params }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PageWrapper() {
+  return (
+    <PrivateRoutes>
+      <NannyDetails></NannyDetails>
+    </PrivateRoutes>
   );
 }
